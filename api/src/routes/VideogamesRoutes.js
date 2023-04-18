@@ -3,12 +3,13 @@ const {getAllGamesAPI,getGameByID,getGamesByName} = require("../controllers/Game
 const { Router } = require('express');
 
 const router = Router();
-
-router.get("/",async(req,res)=>{
-    const getAll = await getAllGamesAPI();
+//! /laurl (?query=) LOS PARETENSIS ES PARA DIFERENCIAR, LA QUERY VA DESP DEL ?
+router.get("/pag",async(req,res)=>{
+    const {pag} = req.query
+    console.log(pag);
+    const getAll = await getAllGamesAPI(pag);
     try {
-        res.status(200).send(getAll)
-        
+        res.status(200).json(getAll)
     } catch (error) {
         res.status(500).json(error.message);
     }
@@ -16,6 +17,7 @@ router.get("/",async(req,res)=>{
 
 router.get("/name",async(req,res)=>{
     const {name} = req.query;
+    console.log(name);
     const funcion = await getGamesByName(name);
     try {
         res.status(200).json(funcion);
