@@ -8,15 +8,15 @@ const router = Router();
 
 //! crea los juegos en la base de datos
 router.post("/",async(req,res)=>{
-    const CreateBDD = await GamesPost(req.query);
+    
     try {
+        const CreateBDD = await GamesPost(req.query);
+        console.log(CreateBDD);
         res.status(200).json(CreateBDD);
     } catch (error) {
-        res.status(500).json(error.message);
+        res.status(500).json(error);
     }
 })
-
-
 
 //! /laurl (?query=) LOS PARETENSIS ES PARA DIFERENCIAR, LA QUERY VA DESP DEL ?
 //! este trae todo al home
@@ -45,6 +45,7 @@ router.get("/name",async(req,res)=>{
 router.get("/detail/:id",async(req,res)=>{
     const {id} = req.params;
     const game = await getGameByID(id);
+    console.log("game",game);
     try {
         res.status(200).json(game);
     } catch (error) {

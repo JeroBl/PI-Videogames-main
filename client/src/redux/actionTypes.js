@@ -32,10 +32,14 @@ export const GetAllGenres = () => {
 //name description plataforms image released rating createdInDB
 
 export const findOrCreate = ({name,description,genres,plataforms,img,released,rating,createdInDB}) => {
-    return async function(dispatch){
-        const post = await axios.post(`http://localhost:3001/videogames?name=${name}&description=${description}&genres=${genres}&plataforms=${plataforms}&image=${img}&released=${released}&rating=${rating}&createdInDB=${createdInDB}`)
-        console.log(post);
-        dispatch({type:FINDORCREATE,payload:post});
+    const url = `http://localhost:3001/videogames?name=${name}&description=${description}&genres=${genres}&plataforms=${plataforms}&image=${img}&released=${String(released)}&rating=${rating}&createdInDB=${createdInDB}`
+    try {
+        return async function(dispatch){
+            const post = await axios.post(url)
+            dispatch({type:FINDORCREATE,payload:post});
+        }
+    } catch (error) {
+        console.log(error.message); 
     }
 }
 
@@ -50,8 +54,7 @@ export const getGameDetail = (id) => {
     }   
 }
 
-export const getByName = async (name) => {
-
+export const getByName = (name) => {
     console.log("action",typeof name);
     return async function(dispatch){
       const response = await axios.get(`http://localhost:3001/videogames/name?name=counter`)

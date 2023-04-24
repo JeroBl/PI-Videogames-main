@@ -23,12 +23,12 @@ module.exports = (sequelize) => {
       allowNull:false,
     },
     image:{
-      type:DataTypes.STRING,
+      type:DataTypes.TEXT,
       allowNull:false,
       isUrl:true,
     },
     released:{
-      type:DataTypes.DATE,
+      type:DataTypes.STRING,
       allowNull:false,
     },
     rating:{
