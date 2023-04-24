@@ -1,29 +1,56 @@
+const {getGameByID,getGamesByName,contador} = require("../controllers/GamesControllers.js")
+const {GamesPost,searchByName} = require("../controllers/GamesDBController.js")
 
-const {getAllGamesAPI,getGameByID,getGamesByName} = require("../controllers/GamesControllers.js")
 const { Router } = require('express');
-
 const router = Router();
-//! /laurl (?query=) LOS PARETENSIS ES PARA DIFERENCIAR, LA QUERY VA DESP DEL ?
-router.get("/pag",async(req,res)=>{
-    const {pag} = req.query
-    console.log(pag);
-    const getAll = await getAllGamesAPI(pag);
+
+
+
+//! crea los juegos en la base de datos
+router.post("/",async(req,res)=>{
+    const CreateBDD = await GamesPost(req.query);
     try {
-        res.status(200).json(getAll)
+        res.status(200).json(CreateBDD);
     } catch (error) {
+        res.status(500).json(error.message);
+    }
+})
+
+
+
+//! /laurl (?query=) LOS PARETENSIS ES PARA DIFERENCIAR, LA QUERY VA DESP DEL ?
+//! este trae todo al home
+router.get("/home",async(req,res)=>{
+    const test = await contador()
+    try {
+        res.status(200).json(test)
+        } catch (error) {
         res.status(500).json(error.message);
     }
 })
 
 router.get("/name",async(req,res)=>{
     const {name} = req.query;
-    console.log(name);
-    const funcion = await getGamesByName(name);
+    console.log("name del query en el router del back",name);
+    const gamesByNameDB = await searchByName(name);
+    const gamesByNameAPI =await getGamesByName(name);
+    //const response = gamesByNameDB.concat(gamesByNameAPI);
     try {
-        res.status(200).json(funcion);
+        res.status(200).json(gamesByNameAPI);
     } catch (error) {
         res.status(500).json(error.message);
     }
+})
+
+router.get("/detail/:id",async(req,res)=>{
+    const {id} = req.params;
+    const game = await getGameByID(id);
+    try {
+        res.status(200).json(game);
+    } catch (error) {
+        res.status(500).json(error.message);
+    }
+
 })
 
 router.get("/:idVideogame",async(req,res)=>{
