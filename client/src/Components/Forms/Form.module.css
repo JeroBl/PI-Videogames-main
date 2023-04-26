@@ -1,57 +1,4 @@
-/* form {
-    display: flex;
-    flex-direction: column;
-    max-width: 400px;
-    margin: auto;
-}
-
-label {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-input[type="text"],
-input[type="url"],
-input[type="date"],
-input[type="range"],
-select {
-    padding: 8px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    margin-bottom: 10px;
-    font-size: 16px;
-}
-
-select {
-    height: 100px;
-}
-
-button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    font-size: 18px;
-    margin-top: 10px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #0062cc;
-}
-
-option{
-    text-align: center;
-}
-
-.divGenres{
-    display: flex;
-    flex-direction: column;
-} */
-
-.formContainer {
+/* .formContainer {
   display: flex;
   flex-direction: column;
   max-width: 400px;
@@ -103,13 +50,70 @@ option{
   display: flex;
   flex-direction: column;
 }
-
-  
-
+ */
 
 
+ .formContainer {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  margin: auto;
+  background-color: rgba(255,255,255,0.8);
+  backdrop-filter: blur(3px);
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 5%;
+}
 
+.formContainer label {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #414e4d;
+}
 
+.formContainer input[type="text"],
+.formContainer input[type="url"],
+.formContainer input[type="date"],
+.formContainer input[type="range"],
+.formContainer select {
+  padding: 8px;
+  border-radius: 5px;
+  border: none;
+  margin-bottom: 10px;
+  font-size: 16px;
+  background-color: #efefef;
+  color: #414e4d;
+}
 
+.formContainer select {
+  height: 100px;
+}
 
+.formContainer button {
+  background-color: #414e4d;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 18px;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: background-color 0.5s;
+}
+
+.formContainer button:hover {
+  background-color: #1a1f1d;
+}
+
+.formContainer option {
+  text-align: center;
+  color: #414e4d;
+}
+
+.formContainer .divGenres {
+  display: flex;
+  flex-direction: column;
+  color: #414e4d;
+}
 

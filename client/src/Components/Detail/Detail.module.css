@@ -1,0 +1,22 @@
+/* .img{
+    border-radius: 10%;
+    margin: auto;
+    height: 90%;
+    width: 90%;
+    overflow: hidden;
+    object-fit: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+} */
+
+.container{
+    border-radius: 10%;
+    margin: auto;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    max-width: 100%;
+}
+

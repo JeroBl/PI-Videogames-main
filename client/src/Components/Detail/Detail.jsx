@@ -3,6 +3,7 @@ import { getGameDetail,CleanDetail } from "../../redux/actionTypes";
 import {useDispatch} from "react-redux"
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import style from "./Detail.module.css";
 
 const Detail = () => {
     const dispatch = useDispatch()
