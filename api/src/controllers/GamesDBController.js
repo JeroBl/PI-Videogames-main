@@ -71,7 +71,7 @@ const GamesPost = async (props) => {
           description: description,
           plataforms: [plataforms], //! del front viene como string
           image: image,
-          released: new String(released),
+          released: released,
           rating: rating,
           createdInDB: createdInDB
       }
