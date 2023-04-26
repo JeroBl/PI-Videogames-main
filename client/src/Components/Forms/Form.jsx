@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetAllGenres,findOrCreate } from '../../redux/actionTypes';
 import style from "./Form.module.css";
+const set = new Set();
 
 const Form = () => {
     const dispatch = useDispatch();
-    const set = new Set();
     const { allGenres,findedOrCreated } = useSelector(state => state);
     const [genresLoaded, setGenresLoaded] = useState(false);
     const [selectedGenres, setSelectedGenres] = useState([]);
@@ -18,21 +18,21 @@ const Form = () => {
     }, [dispatch]);
 
     function valueCatcher(event) {
-      let value = event.target.value;
-      let target = event.target.options[value];
-    
-      if (target.getAttribute("data-selected") === "true") {
-        set.delete(event.target.value)
-        console.log(set);
-        target.style.backgroundColor = "";
-        target.setAttribute("data-selected", "false");
-      } else {
-        set.add(event.target.value)
-        console.log(set);
-        target.style.backgroundColor = "green";
-        target.setAttribute("data-selected", "true");
+        let value = event.target.value;
+        let target = event.target.options[value];
+      
+        if (target.getAttribute("data-selected") === "true") {
+            set.delete(event.target.value)
+          console.log(set);
+          target.style.backgroundColor = "";
+          target.setAttribute("data-selected", "false");
+        } else {
+            set.add(event.target.value)
+          console.log(set);
+          target.style.backgroundColor = "green";
+          target.setAttribute("data-selected", "true");
+        }
       }
-    }
 
     function MySelect(allgenres) {
         return (
@@ -54,7 +54,7 @@ const Form = () => {
         const plataforms = event.target.querySelector('input[name="plataforms"]').value;
         const released = event.target.querySelector('input[name="released"]').value;
         const rating = event.target.querySelector('input[name="rating"]').value;
-        console.log(released);
+    
         if (!name || !img || !description || !plataforms || !released || !rating) {
             // Si alguno de los campos está vacío, se muestra un mensaje de error
             alert('Todos los campos son obligatorios');
@@ -89,15 +89,6 @@ const Form = () => {
             }
     }
 
-    const checker = (event) => {
-        let div = event.target.id
-        if (findedOrCreated?.statusText) {
-            div.style.backgroundColor = "green";
-        }
-        else{
-            div.style.backgroundColor = "";
-        }
-    }
 
     return (
         <div>
@@ -147,7 +138,7 @@ const Form = () => {
                }
             }}>Eliminar Juego</button>
 
-            <div id='div' onChange={checker}>
+            <div id='div'>
                 {findedOrCreated ? <p>Juego: {findedOrCreated?.data?.name}</p> : <p></p> }
                 <p>Estado: {findedOrCreated?.statusText}</p>
             </div>
@@ -165,4 +156,7 @@ const Form = () => {
 }
 
 export default Form;
+
+
+
 

@@ -71,13 +71,10 @@ const getAllGamesAPI = async () => {
   })
       
   }
-  console.log("cuenta",contador);
   return arrayResults;
 }
 
-const contador = async () => {
-  const arrayDB = await getGamesByPK()
-  const arrayAPI = await getAllGamesAPI();
+const contador = async (arrayDB,arrayAPI) => {
   const arrayForSlice = arrayDB.concat(arrayAPI);
   const arrayForReturn = [];
   for (let i = 0; i < arrayForSlice.length; i +=15) {

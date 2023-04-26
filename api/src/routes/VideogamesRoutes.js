@@ -1,5 +1,5 @@
-const {getGameByID,getGamesByName,contador} = require("../controllers/GamesControllers.js")
-const {GamesPost,searchByName} = require("../controllers/GamesDBController.js")
+const {getGameByID,getGamesByName,contador,getAllGamesAPI} = require("../controllers/GamesControllers.js")
+const {GamesPost,searchByName,getGamesByPK} = require("../controllers/GamesDBController.js")
 
 const { Router } = require('express');
 const router = Router();
@@ -8,10 +8,8 @@ const router = Router();
 
 //! crea los juegos en la base de datos
 router.post("/",async(req,res)=>{
-    
+    const CreateBDD = await GamesPost(req.query);
     try {
-        const CreateBDD = await GamesPost(req.query);
-        console.log(CreateBDD);
         res.status(200).json(CreateBDD);
     } catch (error) {
         res.status(500).json(error);
@@ -20,9 +18,12 @@ router.post("/",async(req,res)=>{
 
 //! /laurl (?query=) LOS PARETENSIS ES PARA DIFERENCIAR, LA QUERY VA DESP DEL ?
 //! este trae todo al home
-router.get("/home",async(req,res)=>{
-    const test = await contador()
+router.get("/home", async (req, res) => {
     try {
+    // devolver la respuesta correspondiente
+    const arrayDB = await getGamesByPK()
+    const arrayAPI = await getAllGamesAPI();
+    const test = await contador(arrayDB,arrayAPI)
         res.status(200).json(test)
         } catch (error) {
         res.status(500).json(error.message);
@@ -31,12 +32,11 @@ router.get("/home",async(req,res)=>{
 
 router.get("/name",async(req,res)=>{
     const {name} = req.query;
-    console.log("name del query en el router del back",name);
     const gamesByNameDB = await searchByName(name);
     const gamesByNameAPI =await getGamesByName(name);
-    //const response = gamesByNameDB.concat(gamesByNameAPI);
+    const response = await contador(gamesByNameDB,gamesByNameAPI)
     try {
-        res.status(200).json(gamesByNameAPI);
+        res.status(200).json(response);
     } catch (error) {
         res.status(500).json(error.message);
     }

@@ -6,11 +6,57 @@ export const FINDORCREATE = "FINDORCREATE";
 export const GETGAMEDETAIL = "GETGAMEDETAIL";
 export const CLEANDETAIL = "CLEANDETAIL";
 export const GETTEDBYNAME = "GETTEDBYNAME";
+export const FILTERS = "FILTERS";
+export const API = "API";
+export const DB = "DB";
+export const AZ = "AZ";
+export const ZA = "ZA";
+export const RATINGAS = "RATINGAS";
+export const RATINGDES = "RATINGDES";
+
+export const APIHandler = (event) => {
+    return async function(dispatch){
+        dispatch({type:API})
+    }
+}
+
+export const DBHandler = (event) => {
+    return async function(dispatch){
+        dispatch({type:DB})
+    }
+}
+
+export const AZHandler = (event) => {
+    return async function(dispatch){
+        dispatch({type:AZ})
+    }
+}
+
+export const ZAHandler = (event) => {
+    return async function(dispatch){
+        dispatch({type:ZA})
+
+    }
+}
+
+export const RATINGASHandler = (event) => {
+    return async function(dispatch){
+        dispatch({type:RATINGAS})
+
+    }
+}
+export const RATINGDESHandler = (event) => {
+    return async function(dispatch){
+        dispatch({type:RATINGDES})
+
+    }
+}
+
 
 export const getAllGames =  (evento) => {
         return async function(dispatch){
             evento(true)
-            axios.get(`http://localhost:3001/videogames/home?`)
+            axios.get(`http://localhost:3001/videogames/home`)
             .then(res => res.data)
             .then(data => {
                 dispatch({type:GETALLGAMES,payload:data})
@@ -32,10 +78,9 @@ export const GetAllGenres = () => {
 //name description plataforms image released rating createdInDB
 
 export const findOrCreate = ({name,description,genres,plataforms,img,released,rating,createdInDB}) => {
-    const url = `http://localhost:3001/videogames?name=${name}&description=${description}&genres=${genres}&plataforms=${plataforms}&image=${img}&released=${String(released)}&rating=${rating}&createdInDB=${createdInDB}`
     try {
         return async function(dispatch){
-            const post = await axios.post(url)
+            const post = await axios.post(`http://localhost:3001/videogames?name=${name}&description=${description}&genres=${genres}&plataforms=${plataforms}&image=${img}&released=${released}&rating=${rating}&createdInDB=${createdInDB}`)
             dispatch({type:FINDORCREATE,payload:post});
         }
     } catch (error) {
@@ -54,12 +99,13 @@ export const getGameDetail = (id) => {
     }   
 }
 
-export const getByName = (name) => {
+export const getByName = (name,evento) => {
     console.log("action",typeof name);
     return async function(dispatch){
-      const response = await axios.get(`http://localhost:3001/videogames/name?name=counter`)
-      console.log(response.data);
+        evento(true)
+      const response = await axios.get(`http://localhost:3001/videogames/name?name=${name}`)
         dispatch({type:GETTEDBYNAME ,payload:response.data})
+        evento(false)
     }
 }
 

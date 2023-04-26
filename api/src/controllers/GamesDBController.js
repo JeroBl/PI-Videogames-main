@@ -71,18 +71,17 @@ const GamesPost = async (props) => {
           description: description,
           plataforms: [plataforms], //! del front viene como string
           image: image,
-          released,
+          released: new String(released),
           rating: rating,
           createdInDB: createdInDB
       }
   }).then(async([Videogame, created]) => {
       if (created) {
-          console.log('Se creo un nuevo juego:', Videogame.toJSON());
+          //console.log('Se creo un nuevo juego:', Videogame.toJSON());
           //* se fija que generos tiene el juego
           const findedGenre = await genreFinder(genres.split(","))
           //*guarda los id de cada uno en un array 
           const id = await findedGenre?.map((el) => el[0].dataValues.id)
-          console.log(id);
           //* por cada genero, relaciona el id del juego con los generos en la base intermedia
           id?.map(async(el)=>await Videogame.addGenres(el))
           await Videogame.save()
@@ -95,9 +94,9 @@ const GamesPost = async (props) => {
       return game;
   }
   
-  // else{
-  //   throw new Error("must contain all data");
-  // }
+  else{
+    throw new Error("must contain all data");
+  }
   }
   
 
@@ -156,6 +155,9 @@ module.exports = {
   searchByName,
   getGamesByPK
 };
+
+
+
 
 
 
